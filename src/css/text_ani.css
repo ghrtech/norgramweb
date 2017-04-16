@@ -1,0 +1,28 @@
+@-webkit-keyframes boxscale {
+    0%   {opacity:0;width: 0; left: 50%; height: 80px; top: 260px; }
+    42%  {opacity:0.8;width: 100%; left: 50%; height: 80px; top: 260px; }
+    100% {opacity:1;width: 100%; left: 50%; height: 508px; top: 0;}
+}
+
+@keyframes boxscale {
+    0%   {opacity:0;width: 0; left: 50%; height: 80px; top: 260px; }
+    42%  {opacity:0.8;width: 100%; left: 50%; height: 80px; top: 260px; }
+    100% {opacity:1;width: 100%; left: 50%; height: 508px; top: 0;}
+}
+
+.boxscale {
+    -webkit-animation-name: boxscale;
+    animation-name: boxscale;
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+}
+
+.boxscale{animation-duration:0.5s;animation-delay:1.6s;
+    -webkit-animation-duration:0.5s;-webkit-animation-delay:1.6s;}
+
+/*animation*/
+#yourElement {
+    -vendor-animation-duration: 0.38s;
+    -vendor-animation-delay: 0.1s;
+    /*  -vendor-animation-iteration-count: infinite;*/
+}

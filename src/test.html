@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .item{width:100px;height:100px;background-color: #f00;}
+    </style>
+</head>
+<body>
+
+<div class="item" id="target1" data-rotation="0"></div>
+
+
+<script src="js/vendor/jquery-1.12.0.min.js"></script>
+<script src="js/vendor/Tween.js"></script>
+<script src="js/RequestAnimationFrame.js"></script>
+<script>
+    $(document).ready(function(){
+        init();
+       // animate();
+        setRotate();
+        var tween1;
+        function init() {
+            var target1 = document.getElementById( 'target1' ),
+                tween1 = new TWEEN.Tween( target1.dataset )
+                    .to( { rotation: 360 }, 2000 )
+                    .repeat( 0 )
+                    .delay( 1000 )
+                    .onUpdate( function() {
+                        console.log(this.rotation);
+                        updateBox( target1, this );
+                    })
+                    .start()
+        }
+        var count=0;
+        var ani;
+        function animate( time ) {
+            ani=requestAnimationFrame( animate );
+            count+=1;
+            if(count>=100){
+                cancelAnimationFrame(ani);
+            }
+            TWEEN.update( time );
+        }
+        function setRotate(){
+            TWEEN.update(2800);
+        }
+
+        function updateBox( box, params ) {
+            var s = box.style,
+                transform = 'rotate(' + Math.floor( params.rotation ) + 'deg)';
+            s.webkitTransform = transform;
+            s.mozTransform = transform;
+           // s.transform = transform;
+        }
+    });
+</script>
+</body>
+</html>
