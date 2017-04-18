@@ -1,0 +1,3 @@
+.inside-page .swiper-container{opacity: 1;}
+.inside-page .swiper-slide{padding-right:280px;}
+.inside-page .main-content{position: absolute;width:280px;height:100%;z-index:1999;background-color:#ddd;top:0;left:initial;right:0;}

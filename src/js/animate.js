@@ -3,7 +3,7 @@
  */
 var tweenAnim=(function($,ta){
     var tweenAnim=ta;
-
+    var halfRate=0.6;
     var params={translate:0,opacity:1,opacityReverse:0.2};
     tweenAnim.init=function(){
         var start= parseInt($("#slide-1 .col-20").css("width"))-20;
@@ -154,8 +154,13 @@ var tweenAnim=(function($,ta){
             var curOpt="current";
         }
 
-        console.log(curOpt)
+        console.log(curOpt);
 
+        if(time >0){
+            var rate=halfRate;
+        }else{
+            var rate=2-halfRate;
+        }
 
         $box=$("#section-"+i);
 
@@ -170,7 +175,7 @@ var tweenAnim=(function($,ta){
                 //底部文字opacity=0;
                 var opacity=0;//=>0.5
 
-                var imageSize=params.imageEnd-time*params.offset;
+                var imageSize=params.imageEnd-time*params.offset*rate;
 
             }
             if(time<0){
@@ -184,7 +189,7 @@ var tweenAnim=(function($,ta){
                 var opacity=0;//=>0.5
 
                 //
-                var imageSize=params.imageEnd+time*params.offset;
+                var imageSize=params.imageEnd+time*params.offset*rate;
             }
         }if(curOpt=="next"){
             if(time>0){
@@ -198,8 +203,8 @@ var tweenAnim=(function($,ta){
                 var listOpt=0;
                 //底部文字opacity>0;
                 var opacity=params.opacity-2*time;//=>0.5
-
-                var imageSize=params.imageStart+time*params.offset;
+                console.log("rate=========="+rate);
+                var imageSize=params.imageStart+time*params.offset*rate;
             }if(time<0){
                 //time 0>-.5
                 //最后一张反向运动
@@ -209,7 +214,7 @@ var tweenAnim=(function($,ta){
                 var listTop=0;
                 var listOpt=0;
 
-                var imageSize=params.imageEnd+time*params.offset;
+                var imageSize=params.imageEnd+time*params.offset*rate;
             }
         }if(curOpt=="prev") {
             if(time<0){
@@ -227,12 +232,12 @@ var tweenAnim=(function($,ta){
                     var opacity=params.opacity+time*2;
                     var listTop=0;
                     var listOpt=0;
-                    var imageSize=params.imageStart-time*params.offset;
+                    var imageSize=params.imageStart-time*params.offset*rate;
                 }else{
                     var opacity=0;
                     var listTop=75;
                     var listOpt=1;
-                    var imageSize=params.imageStart-time*params.offset;
+                    var imageSize=params.imageStart-time*params.offset*rate;
                 }
 
             }
@@ -240,35 +245,104 @@ var tweenAnim=(function($,ta){
         }
 
         var imageHeight=imageSize*1000/1980;
-      /*  var top =   params.translate +(-time)*150 + 'px';
-        var opacityReverse=params.opacityReverse+time*2*0.4;
-        var opacity=params.opacity+(time*2);
-        console.log($box);
-*/
-        $box.find(".slide-header-index").css("top",top);
-        $box.find(".index-en").css("opacity",opacityReverse);
-        $box.find(".index-num").css("opacity",opacityReverse);
-        $box.find(".content-main").css({
-            "opacity":opacity,
-           /* "-ms-transform":"translateY("+top+"px)",
-            "-webkit-transform":"translateY("+top+"px)",
-            "transform":"translateY("+top+"px)"*/
-        });
-        // s.transform = transform;
 
-        $box.find(".section-list-title").css({
-            "opacity":listOpt,
-            "-ms-transform":"translate3d(0,-"+listTop+"px,0)",
-            "-webkit-transform":"translate3d(0,-"+listTop+"px,0)",
-            "transform":"translate3d(0,-"+listTop+"px,0)",
-        });
-        $box.find(".img-wrapper").css({
-            "height":imageHeight+"px",
-        })
-        $box.find("img.lazy").css({
-            "width":imageSize+"px",
-           // "left":(-1)*imageSize/2+"px"
-        })
+        if(time>0){
+            $box.find(".slide-header-index").css({
+                "top":top,
+                "-webkit-transition-timing-function":"ease-in",
+                "-ms-transition-timing-function":"ease-in",
+                "transition-timing-function":"ease-in"
+            });
+            $box.find(".index-en").css({
+                "opacity":opacityReverse,
+                "-webkit-transition-timing-function":"ease-in",
+                "-ms-transition-timing-function":"ease-in",
+                "transition-timing-function":"ease-in"
+            });
+            $box.find(".index-num").css({
+                "opacity":opacityReverse,
+                "-webkit-transition-timing-function":"ease-in",
+                "-ms-transition-timing-function":"ease-in",
+                "transition-timing-function":"ease-in"
+            });
+            $box.find(".content-main").css({
+                "opacity":opacity,
+                "-webkit-transition-timing-function":"ease-in",
+                "-ms-transition-timing-function":"ease-in",
+                "transition-timing-function":"ease-in"
+            });
+
+            $box.find(".section-list-title").css({
+                "opacity":listOpt,
+                "-ms-transform":"translate3d(0,-"+listTop+"px,0)",
+                "-webkit-transform":"translate3d(0,-"+listTop+"px,0)",
+                "transform":"translate3d(0,-"+listTop+"px,0)",
+
+                "-webkit-transition-timing-function":"ease-in",
+                "-ms-transition-timing-function":"ease-in",
+                "transition-timing-function":"ease-in"
+            });
+            $box.find(".img-wrapper").css({
+                "height":imageHeight+"px",
+                "-webkit-transition-timing-function":"ease-in",
+                "-ms-transition-timing-function":"ease-in",
+                "transition-timing-function":"ease-in"
+            });
+            $box.find("img.lazy").css({
+                "width":imageSize+"px",
+                "-webkit-transition-timing-function":"ease-in",
+                "-ms-transition-timing-function":"ease-in",
+                "transition-timing-function":"ease-in"
+            })
+        }else{
+            $box.find(".slide-header-index").css({
+                "top":top,
+                "-webkit-transition-timing-function":"ease-out",
+                "-ms-transition-timing-function":"ease-out",
+                "transition-timing-function":"ease-out"
+            });
+            $box.find(".index-en").css({
+                "opacity":opacityReverse,
+                "-webkit-transition-timing-function":"ease-out",
+                "-ms-transition-timing-function":"ease-out",
+                "transition-timing-function":"ease-out"
+            });
+            $box.find(".index-num").css({
+                "opacity":opacityReverse,
+                "-webkit-transition-timing-function":"ease-out",
+                "-ms-transition-timing-function":"ease-out",
+                "transition-timing-function":"ease-out"
+            });
+            $box.find(".content-main").css({
+                "opacity":opacity,
+                "-webkit-transition-timing-function":"ease-out",
+                "-ms-transition-timing-function":"ease-out",
+                "transition-timing-function":"ease-out"
+            });
+
+            $box.find(".section-list-title").css({
+                "opacity":listOpt,
+                "-ms-transform":"translate3d(0,-"+listTop+"px,0)",
+                "-webkit-transform":"translate3d(0,-"+listTop+"px,0)",
+                "transform":"translate3d(0,-"+listTop+"px,0)",
+
+                "-webkit-transition-timing-function":"ease-out",
+                "-ms-transition-timing-function":"ease-out",
+                "transition-timing-function":"ease-out"
+            });
+            $box.find(".img-wrapper").css({
+                "height":imageHeight+"px",
+                "-webkit-transition-timing-function":"ease-out",
+                "-ms-transition-timing-function":"ease-out",
+                "transition-timing-function":"ease-out"
+            });
+            $box.find("img.lazy").css({
+                "width":imageSize+"px",
+                "-webkit-transition-timing-function":"ease-out",
+                "-ms-transition-timing-function":"ease-out",
+                "transition-timing-function":"ease-out"
+            })
+        }
     };
 
     tweenAnim.update=function(i,time,prev){
